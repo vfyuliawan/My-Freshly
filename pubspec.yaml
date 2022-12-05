@@ -73,6 +73,22 @@ flutter:
   assets:
     - assets/images/toko.png
     - assets/images/bag.png
+    - assets/images/all.jpg
+    - assets/images/sayur.jpg
+    - assets/images/buah.jpg
+    - assets/images/order.png
+    - assets/images/daging.png
+    - assets/images/ewallet.png
+    - assets/images/reward.png
+    - assets/images/subscribe.png
+    - assets/images/email.png
+    - assets/images/wa.png
+    - assets/images/location.png
+    - assets/images/addproduct.png
+    - assets/images/logout.png
+    - assets/images/ikan.png
+    - assets/images/susu.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

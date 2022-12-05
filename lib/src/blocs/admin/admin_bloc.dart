@@ -19,6 +19,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
         price: event.price,
         desc: event.desc,
         variant: event.variants!.split(', '),
+        category: event.category!.split(', '),
       );
 
       final result = await AdminService().addNewProduct(data,

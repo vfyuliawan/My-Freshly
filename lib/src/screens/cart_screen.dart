@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+
 part of 'screens.dart';
 
 class CartScreen extends StatelessWidget {
@@ -40,10 +42,37 @@ class CartScreen extends StatelessWidget {
                             .make()
                       ]).make(),
                     ]).expand(),
-                    ButtonWidget(
-                      text: 'Beli',
-                      color: kPrimaryColor,
-                      onPressed: () {},
+                    BlocListener<AddToOrderBloc, AddToOrderState>(
+                      listener: (context, orderState) {
+                        if (orderState is AddToOrderIsSuccess) {
+                          Commons()
+                              .showSnackbarInfo(context, orderState.message);
+                        } else if (orderState is AddToOrderIsFailed) {
+                          Commons()
+                              .showSnackbarError(context, orderState.message);
+                        }
+                      },
+                      child: BlocBuilder<CheckboxCartCubit, CheckboxCartState>(
+                        builder: (context, state) {
+                          return BlocBuilder<AddToOrderBloc, AddToOrderState>(
+                            builder: (context, orderState) {
+                              return ButtonWidget(
+                                text: 'Beli',
+                                isLoading: (orderState is AddToOrderIsLoading
+                                    ? true
+                                    : false),
+                                color: kPrimaryColor,
+                                onPressed: () {
+                                  BlocProvider.of<AddToOrderBloc>(context).add(
+                                    OrderRequest(cartTotalPrice(),
+                                        (state as CheckboxCartIsChecked).model),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                     )
                   ]).p16().box.white.withShadow([
                     BoxShadow(
@@ -60,11 +89,19 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: colorName.white,
+        leading: Container(
+          child: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: kPrimaryColor,
+          ).onTap(() {
+            context.go(routeName.home);
+          }),
+        ),
         title: Row(
           children: [
             Icon(Icons.shopping_cart, color: kPrimaryColor),
             5.widthBox,
-            "My Chart".text.bold.color(kPrimaryColor).make()
+            "My Cart".text.bold.color(kPrimaryColor).make()
           ],
         ),
         iconTheme: const IconThemeData(color: colorName.black),
@@ -124,15 +161,26 @@ class CartScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 20)),
                   8.heightBox,
-                  "2 Item".text.bold.size(16).make()
+                  BlocBuilder<ListCartBloc, ListCartState>(
+                    builder: (context, cartState) {
+                      if (cartState is ListCartIsSuccess) {
+                        return "${cartState.data.length} Item"
+                            .text
+                            .bold
+                            .size(16)
+                            .make();
+                      }
+                      return Container();
+                    },
+                  )
                 ],
               ),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.green.shade800.withOpacity(0.2),
+                      color: Colors.green.shade800,
                       blurRadius: 1,
-                      offset: Offset(0, 7)),
+                      offset: Offset(0, 4)),
                 ],
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(

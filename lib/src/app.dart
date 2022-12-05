@@ -17,6 +17,11 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => ProductPictureCubit()),
         BlocProvider(create: (context) => ListProductBloc()),
+        BlocProvider(create: (context) => ListProductSayurBloc()),
+        BlocProvider(create: (context) => ListProductBuahBloc()),
+        BlocProvider(create: (context) => ListProductDagingBloc()),
+        BlocProvider(create: (context) => ListProductIkanBloc()),
+        BlocProvider(create: (context) => ListSearchProductBloc()),
         BlocProvider(create: (context) => DetailProductBloc()),
         BlocProvider(create: (context) => ListWishlistBloc()),
         BlocProvider(create: (context) => CheckSavedCubit()),
@@ -27,6 +32,8 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => CheckboxCartCubit()),
         BlocProvider(create: (context) => AddToCartBloc()),
         BlocProvider(create: (context) => CounterCubit()),
+        BlocProvider(create: (context) => ListOrderBloc()),
+        BlocProvider(create: (context) => AddToOrderBloc()),
         BlocProvider(
             create: (context) =>
                 WishlistCubit(BlocProvider.of<CheckSavedCubit>(context))),

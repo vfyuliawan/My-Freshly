@@ -13,6 +13,8 @@ class _AdminScreenState extends State<AdminScreen> {
   final TextEditingController productDescController = TextEditingController();
   final TextEditingController productVariantsController =
       TextEditingController();
+  final TextEditingController productCategoryController =
+      TextEditingController();
 
   void reset() {
     //kita hapus name controller
@@ -23,6 +25,7 @@ class _AdminScreenState extends State<AdminScreen> {
     productDescController.clear();
     //kita hapus variant controller
     productVariantsController.clear();
+    productCategoryController.clear();
     //kita hapus state image picker
     BlocProvider.of<ProductPictureCubit>(context).resetImage();
   }
@@ -59,6 +62,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     price: double.parse(productPriceController.text),
                     desc: productDescController.text,
                     variants: productVariantsController.text,
+                    category: productCategoryController.text,
                   ));
                 },
                 isLoading: (state is AdminIsLoading) ? true : false,
@@ -93,6 +97,11 @@ class _AdminScreenState extends State<AdminScreen> {
       TextFieldWidget(
         controller: productVariantsController,
         title: 'Variant Produk',
+      ),
+      8.heightBox,
+      TextFieldWidget(
+        controller: productCategoryController,
+        title: 'Category Produk',
       ),
       8.heightBox,
       BlocBuilder<ProductPictureCubit, ProductPictureState>(

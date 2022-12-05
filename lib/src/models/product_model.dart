@@ -12,6 +12,7 @@ class ProductModel {
   final List<String>? pictures;
   final String? desc;
   final List<String>? variant;
+  final List<String>? category;
   // final int? total;
   ProductModel({
     this.id,
@@ -21,6 +22,7 @@ class ProductModel {
     this.pictures,
     this.desc,
     this.variant,
+    this.category,
     // this.total,
   });
 
@@ -93,6 +95,7 @@ class ProductModel {
     List<String>? pictures,
     String? desc,
     List<String>? variant,
+    List<String>? category,
     // int? total,
   }) {
     return ProductModel(
@@ -103,6 +106,7 @@ class ProductModel {
       pictures: pictures ?? this.pictures,
       desc: desc ?? this.desc,
       variant: variant ?? this.variant,
+      category: category ?? this.category,
       // total: total ?? this.total,
     );
   }
@@ -116,6 +120,7 @@ class ProductModel {
       'pictures': pictures,
       'desc': desc,
       'variant': variant,
+      'category': category,
       // 'total': total,
     };
   }
@@ -131,6 +136,7 @@ class ProductModel {
       pictures: map['pictures'] != null ? List.from(map['pictures']) : [],
       desc: map['desc'] != null ? map['desc'] as String : null,
       variant: map['variant'] != null ? List.from(map['variant']) : [],
+      category: map['category'] != null ? List.from(map['category']) : [],
       // total: map['total'] != null ? map['total'] as int : 1,
     );
   }

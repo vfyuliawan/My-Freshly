@@ -18,6 +18,81 @@ class ProductService {
     }
   }
 
+  Future<Either<String, List<ProductModel>>> fetchListProductSayur() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'sayur')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> fetchListProductSearch(
+      String search) async {
+    try {
+      final querySnapshot =
+          await productCollection.where('name', isGreaterThan: search).get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> fetchListProductIkan() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'ikan')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> fetchListProductbuah() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'buah')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> fetchListProductDaging() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'daging')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   Future<Either<String, ProductModel>> fetchDetailProduct(String docId) async {
     try {
       final documentSnapshot = await productCollection.doc(docId).get();

@@ -13,10 +13,15 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView>
     with TickerProviderStateMixin {
+  final TextEditingController productSearchController = TextEditingController();
+  void reset() {
+    productSearchController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    TabController _tabController = TabController(length: 3, vsync: this);
+    TabController _tabController = TabController(length: 6, vsync: this);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -26,14 +31,100 @@ class _DashboardViewState extends State<DashboardView>
             padding: const EdgeInsets.only(right: 15),
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  radius: 20,
-                  child:
-                      Icon(Icons.shopping_cart_checkout, color: Colors.white),
-                ).onTap(() {
-                  context.go(routeName.cartPath);
-                }),
+                PreferredSize(
+                  preferredSize: Size.fromHeight(10),
+                  child: Container(
+                    width: 160,
+                    // height: 40,
+                    decoration: BoxDecoration(
+                      color: colorName.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: productSearchController,
+                      style: TextStyle(color: colorName.black),
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: BlocBuilder<ListSearchProductBloc,
+                              ListSearchProductState>(
+                            builder: (context, state) {
+                              return Icon(Icons.search, color: kPrimaryColor)
+                                  .onTap(() {
+                                BlocProvider.of<ListSearchProductBloc>(context)
+                                    .add(
+                                  FetchListProductSearch(
+                                      search: productSearchController.text),
+                                );
+                                context.go(routeName.searchPath);
+                              });
+                            },
+                          ),
+                          hintText: 'Cari produk segar di Freshly'),
+                    ),
+                  ).pOnly(right: 10),
+                ),
+                Stack(children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    radius: 20,
+                    child:
+                        Icon(Icons.shopping_bag_outlined, color: Colors.white),
+                  ).onTap(() {
+                    context.go(routeName.myOrderPath);
+                  }),
+                  Positioned(
+                    // bottom: 5,
+                    left: 21,
+                    right: 1,
+                    child: Container(
+                      height: 20,
+                      width: 20,
+                      padding: EdgeInsets.all(3),
+                      child: BlocBuilder<ListOrderBloc, ListOrderState>(
+                        builder: (context, cartState) {
+                          if (cartState is ListOrderIsSuccess) {
+                            return cartState.model.length.text.size(5).make();
+                          }
+                          return Container();
+                        },
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent.shade200,
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                  ),
+                ]),
+                8.widthBox,
+                Stack(children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    radius: 20,
+                    child: Icon(Icons.shopping_cart, color: Colors.white),
+                  ).onTap(() {
+                    context.go(routeName.cartPath);
+                  }),
+                  Positioned(
+                    // bottom: 5,
+                    left: 21,
+                    right: 1,
+                    child: Container(
+                      height: 20,
+                      width: 20,
+                      padding: EdgeInsets.all(3),
+                      child: BlocBuilder<ListCartBloc, ListCartState>(
+                        builder: (context, cartState) {
+                          if (cartState is ListCartIsSuccess) {
+                            return cartState.data.length.text.size(5).make();
+                          }
+                          return Container();
+                        },
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent.shade200,
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
+                  ),
+                ]),
                 8.widthBox,
                 CircleAvatar(
                   backgroundColor: Colors.grey,
@@ -75,17 +166,109 @@ class _DashboardViewState extends State<DashboardView>
                         unselectedLabelColor: Colors.grey,
                         tabs: [
                           Tab(
-                            text: "Buah",
-                            icon: Icon(Icons.face),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image: AssetImage("assets/images/all.jpg"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "All".text.size(8).make()
+                              ],
+                            ),
+                            // icon: Icon(Icons.face),
                           ),
                           Tab(
-                            text: "Sayur",
-                            icon: Icon(Icons.safety_check),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image:
+                                        AssetImage("assets/images/sayur.jpg"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "Sayur".text.size(8).make()
+                              ],
+                            ),
                           ),
                           Tab(
-                            text: "umbi",
-                            // child: ,
-                            icon: Icon(Icons.medication_liquid),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image: AssetImage("assets/images/buah.jpg"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "Buah".text.size(8).make()
+                              ],
+                            ),
+                          ),
+                          Tab(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image:
+                                        AssetImage("assets/images/daging.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "Daging".text.size(8).make()
+                              ],
+                            ),
+                          ),
+                          Tab(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image: AssetImage("assets/images/ikan.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "Ikan".text.size(8).make()
+                              ],
+                            ),
+                          ),
+                          Tab(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 40,
+                                  child: Image(
+                                    image: AssetImage("assets/images/susu.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                2.heightBox,
+                                "Ikan".text.size(8).make()
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -104,8 +287,36 @@ class _DashboardViewState extends State<DashboardView>
                             child: _buildListProduct().expand(),
                           ),
                         ),
-                        Text("ther"),
-                        Text("here"),
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _buildListProductSayur().expand(),
+                          ),
+                        ),
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _buildListProductBuah().expand(),
+                          ),
+                        ),
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _buildListProductDaging().expand(),
+                          ),
+                        ),
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _buildListProductIkan().expand(),
+                          ),
+                        ),
+                        SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: _buildListProductDaging().expand(),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -240,6 +451,142 @@ class _DashboardViewState extends State<DashboardView>
     );
   }
 
+  Widget _buildListProductSayur() {
+    return BlocConsumer<ListProductSayurBloc, ListProductSayurState>(
+      listener: (context, state) {
+        if (state is ListProductSayurIsFailed) {
+          Commons().showSnackBar(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is ListProductSayurIsLoading) {
+          //Loading Widget
+          return const CircularProgressIndicator();
+        }
+        if (state is ListProductSayurIsSuccess) {
+          //List Product Widget
+          final data = state.products;
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3.5 / 4,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return _buildProductWidget(context, data[index]);
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
+  Widget _buildListProductDaging() {
+    return BlocConsumer<ListProductDagingBloc, ListProductDagingState>(
+      listener: (context, state) {
+        if (state is ListProductDagingIsFailed) {
+          Commons().showSnackBar(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is ListProductDagingIsLoading) {
+          //Loading Widget
+          return const CircularProgressIndicator();
+        }
+        if (state is ListProductDagingIsSuccess) {
+          //List Product Widget
+          final data = state.data;
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3.5 / 4,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return _buildProductWidget(context, data[index]);
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
+  Widget _buildListProductIkan() {
+    return BlocConsumer<ListProductIkanBloc, ListProductIkanState>(
+      listener: (context, state) {
+        if (state is ListProductIkanIsFailed) {
+          Commons().showSnackBar(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is ListProductIkanIsLoading) {
+          //Loading Widget
+          return const CircularProgressIndicator();
+        }
+        if (state is ListProductIkanIsSuccess) {
+          //List Product Widget
+          final data = state.products;
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3.5 / 4,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return _buildProductWidget(context, data[index]);
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
+  Widget _buildListProductBuah() {
+    return BlocConsumer<ListProductBuahBloc, ListProductBuahState>(
+      listener: (context, state) {
+        if (state is ListProductBuahIsFailed) {
+          Commons().showSnackBar(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is ListProductBuahIsLoading) {
+          //Loading Widget
+          return const CircularProgressIndicator();
+        }
+        if (state is ListProductBuahIsSuccess) {
+          //List Product Widget
+          final data = state.data;
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3.5 / 4,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return _buildProductWidget(context, data[index]);
+            },
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
   Widget _buildHeader() {
     return Column(
       children: [
@@ -247,6 +594,12 @@ class _DashboardViewState extends State<DashboardView>
           children: [
             Container(
               decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.green.shade800,
+                      blurRadius: 2,
+                      offset: Offset(0, 3))
+                ],
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(70),
@@ -305,7 +658,33 @@ class _DashboardViewState extends State<DashboardView>
           VStack([
             data.name!.text.size(16).bold.make(),
             4.heightBox,
+            Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: kPrimaryColor,
+                  size: 15,
+                ),
+                Icon(Icons.star, size: 15, color: kPrimaryColor),
+                Icon(Icons.star, size: 15, color: kPrimaryColor),
+                const Icon(Icons.star, size: 15, color: Colors.black),
+                const Icon(Icons.star, size: 15, color: Colors.black),
+              ],
+            ),
+            4.heightBox,
             Commons().setPriceToIDR(data.price!).text.size(12).make(),
+            4.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              // mainAxisSize: MainAxisSize.max,
+              children: data.category!
+                  .map((e) => Container(
+                        padding: EdgeInsets.only(right: 5),
+                        child:
+                            e.text.color(Colors.grey.withOpacity(0.4)).make(),
+                      ))
+                  .toList(),
+            )
           ]).p8()
         ],
       ).box.white.make(),

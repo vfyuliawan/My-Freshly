@@ -2,17 +2,17 @@
 part of 'cart_count_bloc.dart';
 
 @immutable
-abstract class CartCountState {}
+abstract class CartCountBlocState {}
 
-class CartCountInitial extends CartCountState {}
+class CartCountInitial extends CartCountBlocState {}
 
-class CartCountIsSuccess extends CartCountState {
-  final int count;
-  CartCountIsSuccess({
-    required this.count,
-  });
-}
+// class CartCountIsSuccess extends CartCountBlocState {
+//   final int count;
+//   CartCountIsSuccess({
+//     required this.count,
+//   });
+// }
 
-class CartCountIsFailed extends CartCountState {}
+// class CartCountIsFailed extends CartCountBlocState {}
 
-class CartCountIsLoading extends CartCountState {}
+// class CartCountIsLoading extends CartCountBlocState {}

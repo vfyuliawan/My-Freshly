@@ -49,6 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   BlocProvider.of<ListWishlistBloc>(context)
                       .add(FetchListWishlist());
                 }
+                if (value == 2) {
+                  BlocProvider.of<ListOrderBloc>(context).add(FetchListOrder());
+                }
               },
             );
           },
