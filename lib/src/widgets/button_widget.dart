@@ -41,7 +41,7 @@ class ButtonWidget extends StatelessWidget {
               ).p(14)
             : text.text
                 .buttonText(context)
-                .color(colorName.black)
+                .color(colorName.white)
                 .size(18)
                 .make()
                 .p(14),

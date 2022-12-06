@@ -246,12 +246,16 @@ class _buildOrder extends StatelessWidget {
               return VStack([
                 HStack([
                   listOrderState.model[index].productName!.text.make().expand(),
-                  (listOrderState.model[index].paymentStatus! == 0
-                          ? 'Belum Dibayar'
-                          : listOrderState.model[index].paymentStatus! == 1
-                              ? 'Pesanan Diproses'
-                              : 'Selesai')
-                      .text
+                  ((listOrderState.model[index].paymentStatus! == 0
+                              ? 'Belum Dibayar'
+                              : listOrderState.model[index].paymentStatus! == 1
+                                  ? 'Pesanan Diproses'
+                                  : listOrderState
+                                              .model[index].paymentStatus! ==
+                                          2
+                                      ? 'Selesai'
+                                      : 'Pesanan Dibatalkan')
+                          .text)
                       .color((listOrderState.model[index].paymentStatus! == 0
                           ? colorName.accentRed
                           : listOrderState.model[index].paymentStatus! == 1
@@ -292,12 +296,22 @@ class _buildOrder extends StatelessWidget {
                   .onTap(() {
                 switch (listOrderState.model[index].paymentStatus!) {
                   case 0:
-                    //TODO: Belum dibayar
-                    Commons().showSnackBar(context, 'Ke Halaman Pembayaran');
+                    // //TODO: Belum dibayar
+                    // Commons().showSnackBar(context, 'Ke Halaman Pembayaran');
+                    context.go(
+                      routeName.paymentPath,
+                      extra: listOrderState.model[index].id,
+                    );
                     break;
                   case 1:
                     //TODO: Diproses
-                    Commons().showSnackBar(context, 'Ke Halaman Detail');
+                    // Commons().showSnackBar(context, 'Ke Halaman Detail');
+
+                    context.go(
+                      routeName.paymentDetailPath,
+                      extra: listOrderState.model[index].id,
+                    );
+
                     break;
                   case 2:
                     //TODO: Selesai

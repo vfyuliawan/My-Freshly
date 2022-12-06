@@ -62,7 +62,7 @@ class OrderService {
   }
 
   //fetchdetail
-  Future<Either<String, OrderModel>> fetchDetailProduct(docId) async {
+  Future<Either<String, OrderModel>> fetchDetailOrder(docId) async {
     try {
       final documentSnapshot = await ordersCollection.doc(docId).get();
       final data = OrderModel.fromMap(documentSnapshot.data()!);
@@ -78,6 +78,20 @@ class OrderService {
       await ordersCollection.doc(model.id).set(model.toMap());
 
       return right('Berhasil Melakukan Checkout');
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, String>> onBayar(OrderModel model) async {
+    try {
+      await ordersCollection.doc(model.id).update(
+        {
+          'paymentStatus': 1,
+        },
+      );
+
+      return right('Pesanan Dibatalkan');
     } catch (e) {
       return left(e.toString());
     }

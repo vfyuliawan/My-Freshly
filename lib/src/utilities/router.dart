@@ -15,6 +15,10 @@ mixin routeName {
   static const myOrderPath = '/home/myOrder';
   static const search = 'search';
   static const searchPath = '/home/search';
+  static const payment = 'payment';
+  static const paymentPath = '/home/myOrder/payment';
+  static const paymentDetail = 'paymentDetail';
+  static const paymentDetailPath = '/home/myOrder/paymentDetail';
 }
 
 final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
@@ -97,6 +101,26 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
           builder: (context, state) {
             return const MyOrderScreen();
           },
-        )
+          routes: [
+            GoRoute(
+              path: routeName.payment,
+              builder: (context, state) {
+                String id = state.extra as String;
+                BlocProvider.of<DetailOrderBloc>(context)
+                    .add(FetchDetailOrder(id));
+                return const PaymentScreen();
+              },
+            ),
+            GoRoute(
+              path: routeName.paymentDetail,
+              builder: (context, state) {
+                String id = state.extra as String;
+                BlocProvider.of<DetailOrderBloc>(context)
+                    .add(FetchDetailOrder(id));
+                return const DetailOrderScreen();
+              },
+            ),
+          ],
+        ),
       ]),
 ]);

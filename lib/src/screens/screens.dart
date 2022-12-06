@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 // import 'dart:js_util';
 
+import 'package:another_stepper/another_stepper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,8 @@ import 'package:freshly/src/widgets/widgets.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
+// import 'package:vertical_stepper/vertical_stepper.dart';
+// import 'package:vertical_stepper/vertical_stepper.dart' as step;
 
 part 'splash_screen.dart';
 part 'register_screen.dart';
@@ -30,3 +33,5 @@ part 'admin_screen.dart';
 part 'detail_screen.dart';
 part 'cart_screen.dart';
 part 'my_order_screen.dart';
+part 'detail_order_screen.dart';
+part 'payment_screen.dart';

@@ -23,6 +23,8 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => ListProductIkanBloc()),
         BlocProvider(create: (context) => ListSearchProductBloc()),
         BlocProvider(create: (context) => DetailProductBloc()),
+        BlocProvider(create: (context) => DetailOrderBloc()),
+        BlocProvider(create: (context) => OnBayarBloc()),
         BlocProvider(create: (context) => ListWishlistBloc()),
         BlocProvider(create: (context) => CheckSavedCubit()),
         BlocProvider(create: (context) => CheckVariantCubit()),
