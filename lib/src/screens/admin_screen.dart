@@ -40,7 +40,7 @@ class _AdminScreenState extends State<AdminScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: 'Tambah Produk'.text.make(),
-          backgroundColor: colorName.secondary,
+          backgroundColor: kPrimaryColor,
           elevation: 0.0,
         ),
         body: BlocConsumer<AdminBloc, AdminState>(
@@ -56,6 +56,7 @@ class _AdminScreenState extends State<AdminScreen> {
             return VStack([
               _buildProductForm(),
               ButtonWidget(
+                color: kPrimaryColor,
                 onPressed: () {
                   BlocProvider.of<AdminBloc>(context).add(AddProduct(
                     name: productNameController.text,

@@ -19,6 +19,8 @@ mixin routeName {
   static const paymentPath = '/home/myOrder/payment';
   static const paymentDetail = 'paymentDetail';
   static const paymentDetailPath = '/home/myOrder/paymentDetail';
+  static const adminProduct = 'adminProduct';
+  static const adminProductPath = '/home/adminProduct';
 }
 
 final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
@@ -67,6 +69,14 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
         return const HomeScreen();
       },
       routes: [
+        GoRoute(
+          path: routeName.adminProduct,
+          builder: (context, state) {
+            BlocProvider.of<ListProductBloc>(context).add(FetchListProduct());
+
+            return const AdminProductScreen();
+          },
+        ),
         GoRoute(
           path: routeName.cart,
           builder: (context, state) {

@@ -35,3 +35,4 @@ part 'cart_screen.dart';
 part 'my_order_screen.dart';
 part 'detail_order_screen.dart';
 part 'payment_screen.dart';
+part 'admin_product_screen.dart';

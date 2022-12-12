@@ -48,6 +48,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   carousel_slider: ^4.1.1
   another_stepper: ^1.1.6
+  fl_chart: ^0.55.2
 
 dev_dependencies:
   flutter_test:
@@ -90,7 +91,11 @@ flutter:
     - assets/images/ikan.png
     - assets/images/susu.png
     - assets/images/user.png
+    - assets/images/ayam.png
+    - assets/images/bumbu.png
     - assets/images/card.png
+    # - assets/images/google.png
+    - assets/images/register_image.png
 
   #   - images/a_dot_ham.jpeg
 

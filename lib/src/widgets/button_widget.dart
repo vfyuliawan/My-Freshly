@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
       this.onPressed,
       this.text = 'Button',
       this.isLoading = false,
-      this.color = Colors.amber});
+      this.color = kPrimaryColor});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ButtonWidget extends StatelessWidget {
           BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
         BoxShadow(
           color: Colors.green.shade800,
-          blurRadius: 9,
+          blurRadius: 3,
           blurStyle: BlurStyle.outer,
         )
       ]),
@@ -33,7 +33,7 @@ class ButtonWidget extends StatelessWidget {
             )),
         child: isLoading!
             ? SizedBox(
-                height: 16,
+                height: 14,
                 width: 16,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(color),

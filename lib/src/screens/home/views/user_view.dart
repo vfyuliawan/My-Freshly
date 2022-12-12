@@ -271,11 +271,15 @@ class UserView extends StatelessWidget {
                               const Text('Log Out'),
                               50.widthBox,
                             ],
-                          ).onTap(() {
-                            BlocProvider.of<UserBloc>(context)
-                                .add(LogOutUser());
-                            context.go(routeName.login);
-                          }),
+                          ).onTap(
+                            () {
+                              BlocProvider.of<UserBloc>(context)
+                                  .add(LogOutUser());
+                              context.go(routeName.login);
+                              Commons().showSnackbarError(
+                                  context, "youHavebeen Logout");
+                            },
+                          ),
                         ],
                       ),
                     ).p(5),

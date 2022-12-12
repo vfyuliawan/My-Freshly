@@ -18,60 +18,67 @@ class WishlistView extends StatelessWidget {
                   final data = state.data[index];
                   return VxBox(
                     child: Card(
-                      child: HStack(
-                        [
-                          VxBox()
-                              .bgImage(DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    data.pictures![0],
-                                  )))
-                              .roundedSM
-                              .size(context.percentWidth * 25,
-                                  context.percentWidth * 25)
-                              .make(),
-                          16.widthBox,
-                          VStack(
+                      child: Column(
+                        children: [
+                          HStack(
                             [
-                              data.name!.text.size(25).bold.make(),
-                              24.heightBox,
-                              Commons()
-                                  .setPriceToIDR(data.price!)
-                                  .text
-                                  .size(12)
-                                  .bold
+                              // _buildHeader(),
+                              VxBox()
+                                  .bgImage(DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        data.pictures![0],
+                                      )))
+                                  .roundedSM
+                                  .size(context.percentWidth * 25,
+                                      context.percentWidth * 25)
                                   .make(),
-                              4.heightBox,
-                              data.desc!.text.size(12).make(),
+                              16.widthBox,
+                              VStack(
+                                [
+                                  data.name!.text.size(25).bold.make(),
+                                  24.heightBox,
+                                  Commons()
+                                      .setPriceToIDR(data.price!)
+                                      .text
+                                      .size(12)
+                                      .bold
+                                      .make(),
+                                  4.heightBox,
+                                  data.desc!.text.size(12).make(),
+                                ],
+                                alignment: MainAxisAlignment.start,
+                              ).expand(),
+                              VStack(
+                                [
+                                  BlocListener<WishlistCubit, WishlistState>(
+                                    listener: (context, state) {
+                                      if (state is WishlistIsSuccess) {
+                                        BlocProvider.of<ListWishlistBloc>(
+                                                context)
+                                            .add(FetchListWishlist());
+                                      }
+                                    },
+                                    child: IconButton(
+                                        onPressed: () {
+                                          BlocProvider.of<WishlistCubit>(
+                                                  context)
+                                              .removeFromWishList(data.id!);
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete_outline,
+                                          color: colorName.accentRed,
+                                        )),
+                                  ),
+                                  16.heightBox,
+                                ],
+                              ),
+                              // TODO: Add up your widgets
                             ],
                             alignment: MainAxisAlignment.start,
-                          ).expand(),
-                          VStack(
-                            [
-                              BlocListener<WishlistCubit, WishlistState>(
-                                listener: (context, state) {
-                                  if (state is WishlistIsSuccess) {
-                                    BlocProvider.of<ListWishlistBloc>(context)
-                                        .add(FetchListWishlist());
-                                  }
-                                },
-                                child: IconButton(
-                                    onPressed: () {
-                                      BlocProvider.of<WishlistCubit>(context)
-                                          .removeFromWishList(data.id!);
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete_outline,
-                                      color: colorName.accentRed,
-                                    )),
-                              ),
-                              16.heightBox,
-                            ],
-                          ),
-                          // TODO: Add up your widgets
+                          ).p16(),
                         ],
-                        alignment: MainAxisAlignment.start,
-                      ).p16(),
+                      ),
                     ).p2(),
                   )
                       .withShadow([
@@ -106,6 +113,62 @@ class WishlistView extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.green.shade800,
+                      blurRadius: 2,
+                      offset: Offset(0, 3))
+                ],
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(70),
+                    bottomRight: Radius.circular(70)),
+              ),
+              height: 110,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 25,
+                ),
+                child: BlocBuilder<UserBloc, UserState>(
+                  builder: (context, userState) {
+                    if (userState is UserIsSuccess) {
+                      return Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage("${userState.data.photoProfile}"),
+                            radius: 30,
+                          ),
+                          18.widthBox,
+                          "${userState.data.username}".text.bold.white.make()
+                        ],
+                      );
+                    }
+                    return 0.heightBox;
+                  },
+                ),
+              ),
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 118),
+            //   child: Container(
+            //     height: 200,
+            //     color: Colors.white,
+            //   ),
+            // )
+          ],
+        )
+      ],
     );
   }
 }

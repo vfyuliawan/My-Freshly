@@ -18,8 +18,9 @@ class _AnakBagongState extends State<AnakBagong> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginIsFailed) {
-              Commons().showSnackBar(context, state.message);
+              Commons().showSnackbarError(context, state.message);
             } else if (state is LoginIsSuccess) {
+              Commons().showSnackbarInfo(context, "Selamat datang Kembali");
               context.go(routeName.home);
             }
           },
@@ -38,7 +39,7 @@ class _AnakBagongState extends State<AnakBagong> {
                   ),
                 )
                     .size(context.screenWidth, context.percentHeight * 45)
-                    .color(Color(0xFFbadc58))
+                    .color(kPrimaryColor)
                     .bottomRounded(value: 80)
                     .withShadow([
                   // BoxShadow(color: )
@@ -105,21 +106,21 @@ class _AnakBagongState extends State<AnakBagong> {
           title: 'Email',
           icon: Icon(
             Icons.email,
-            color: Color(0xFFbadc58),
+            color: kPrimaryColor,
           ),
         ),
         8.heightBox,
         TextFieldWidget(
           controller: passController,
           title: 'Password',
-          icon: Icon(Icons.key, color: Color(0xFFbadc58)),
+          icon: Icon(Icons.key, color: kPrimaryColor),
           isPassword: true,
         ),
-        16.heightBox,
+        40.heightBox,
         BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             return ButtonWidget(
-              color: Color(0xFFbadc58),
+              color: kPrimaryColor,
               onPressed: () {
                 BlocProvider.of<LoginBloc>(context).add(LoginUser(
                     email: emailController.text,
@@ -132,9 +133,18 @@ class _AnakBagongState extends State<AnakBagong> {
           },
         ),
         50.heightBox,
-        'Register here'.text.makeCentered().onTap(() {
-          context.go(routeName.register);
-        })
+        "Already Have Account"
+            .richText
+            .size(12)
+            .withTextSpanChildren(
+              ["  Login Here".textSpan.size(14).bold.green500.make()],
+            )
+            .makeCentered()
+            .onTap(
+              () {
+                context.go(routeName.register);
+              },
+            )
       ],
     ).p16();
   }

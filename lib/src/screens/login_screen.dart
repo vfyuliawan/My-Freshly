@@ -26,11 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             child: VStack(
               [
+                8.heightBox,
                 VxBox(
                   child: Image(
                     image: AssetImage("assets/images/toko.png"),
                     fit: BoxFit.contain,
-                  ),
+                  ).pOnly(top: 20),
                 )
                     .size(context.screenWidth, context.percentHeight * 25)
                     // .color(colorName.accentBlue)
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         image: NetworkImage(
                             "https://img.freepik.com/premium-vector/water-drop-background-with-leaves-fresh-green-vector-illustration_534957-34.jpg"),
                         fit: BoxFit.cover))
-                    .color(Color.fromARGB(255, 115, 248, 38))
+                    .color(kPrimaryColor)
                     .topRounded(value: 180)
                     // .shadow5xl
                     .withShadow([
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ]).make()
               ],
-            ),
+            ).pOnly(top: 20),
           ),
         ),
       ),
