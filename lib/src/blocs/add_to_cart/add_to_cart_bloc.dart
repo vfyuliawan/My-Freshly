@@ -11,6 +11,9 @@ class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
   AddToCartBloc() : super(AddToCartInitial()) {
     on<AddToCart>((event, emit) async {
       emit(AddToCartIsLoading());
+      // final result = await ProductService().addToCart(event.data);
+      // emit(result.fold(
+      //     (l) => AddToCartIsFailed(l), (r) => AddToCartIsSuccess(r)));
       final selectedVariant = <String>[];
 
       //DIcek jika produk memiliki variant
