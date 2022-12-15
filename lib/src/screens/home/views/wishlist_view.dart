@@ -6,6 +6,21 @@ class WishlistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: kPrimaryColor,
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            "My Wishlist".text.bold.color(colorName.black).make(),
+            10.widthBox,
+            Icon(Icons.favorite_border_rounded, color: Colors.black),
+          ],
+        ).expand(),
+        iconTheme: const IconThemeData(color: colorName.black),
+        actions: [],
+      ),
       body: SafeArea(
         child: BlocBuilder<ListWishlistBloc, ListWishlistState>(
           builder: (context, state) {

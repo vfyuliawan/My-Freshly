@@ -9,6 +9,27 @@ class MyOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        leading: Container(
+          child: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.black,
+          ).onTap(() {
+            context.go(routeName.home);
+          }),
+        ),
+        title: Row(
+          children: [
+            Icon(Icons.shopping_bag_outlined, color: Colors.red),
+            10.widthBox,
+            "My Order".text.bold.color(colorName.black).make(),
+          ],
+        ),
+        iconTheme: const IconThemeData(color: colorName.black),
+        actions: [],
+      ),
       body: SafeArea(
         child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
@@ -17,42 +38,29 @@ class MyOrderScreen extends StatelessWidget {
                 // decoration: BoxDecoration(color: kPrimaryColor),
                 child: ZStack(
                   [
-                    _buildHeader(),
-                    Positioned(
-                      left: 330,
-                      top: 7,
-                      child: const CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: 20,
-                        child: Icon(Icons.arrow_back_ios_new_outlined,
-                            color: Colors.white),
-                      ).onTap(() {
-                        context.go(routeName.home);
-                      }),
-                    ),
-                    PromoCard().pOnly(
-                      top: 150,
-                      left: 10,
-                    ),
-                    16.heightBox,
-                    Container(
-                            margin: const EdgeInsets.only(right: 4, left: 4),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                // ignore: prefer_const_literals_to_create_immutables
-                                boxShadow: [
-                                  const BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 3,
-                                      offset: Offset(2, 0)),
-                                  const BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 3,
-                                      offset: Offset(0, 5))
-                                ],
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const _buildOrder())
-                        .pOnly(top: 330, right: 10, left: 10),
+                    // _buildHeader(),
+
+                    PromoCard().p(5),
+                    8.heightBox,
+                    _buildOrder().pOnly(top: 180, right: 10, left: 10),
+                    // Container(
+                    //         margin: const EdgeInsets.only(right: 4, left: 4),
+                    //         decoration: BoxDecoration(
+                    //             color: Colors.white,
+                    //             // ignore: prefer_const_literals_to_create_immutables
+                    //             boxShadow: [
+                    //               const BoxShadow(
+                    //                   color: Colors.black,
+                    //                   blurRadius: 3,
+                    //                   offset: Offset(2, 0)),
+                    //               const BoxShadow(
+                    //                   color: Colors.black,
+                    //                   blurRadius: 3,
+                    //                   offset: Offset(0, 5))
+                    //             ],
+                    //             borderRadius: BorderRadius.circular(10)),
+                    //         child: const _buildOrder())
+                    //     .pOnly(top: 180, right: 10, left: 10),
                   ],
                   // crossAlignment: CrossAxisAlignment.center,
                 ).wFull(context),
@@ -238,88 +246,100 @@ class _buildOrder extends StatelessWidget {
     return BlocBuilder<ListOrderBloc, ListOrderState>(
       builder: (context, listOrderState) {
         if (listOrderState is ListOrderIsSuccess) {
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (context, index) =>
+                VxDivider(color: colorName.white.withOpacity(.8)).px20(),
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemCount: listOrderState.model.length,
             itemBuilder: (context, index) {
-              return VStack([
-                HStack([
-                  listOrderState.model[index].productName!.text.make().expand(),
-                  ((listOrderState.model[index].paymentStatus! == 0
-                              ? 'Belum Dibayar'
-                              : listOrderState.model[index].paymentStatus! == 1
-                                  ? 'Pesanan Diproses'
+              return Container(
+                child: Card(
+                  shadowColor: Colors.blue,
+                  child: VStack([
+                    HStack([
+                      listOrderState.model[index].productName!.text
+                          .make()
+                          .expand(),
+                      ((listOrderState.model[index].paymentStatus! == 0
+                                  ? 'Belum Dibayar'
                                   : listOrderState
                                               .model[index].paymentStatus! ==
-                                          2
-                                      ? 'Selesai'
-                                      : 'Pesanan Dibatalkan')
-                          .text)
-                      .color((listOrderState.model[index].paymentStatus! == 0
-                          ? colorName.accentRed
-                          : listOrderState.model[index].paymentStatus! == 1
-                              ? colorName.accentBlue
-                              : colorName.accentGreen))
+                                          1
+                                      ? 'Pesanan Diproses'
+                                      : listOrderState.model[index]
+                                                  .paymentStatus! ==
+                                              2
+                                          ? 'Selesai'
+                                          : 'Pesanan Dibatalkan')
+                              .text)
+                          .color((listOrderState.model[index].paymentStatus! ==
+                                  0
+                              ? colorName.accentRed
+                              : listOrderState.model[index].paymentStatus! == 1
+                                  ? colorName.accentBlue
+                                  : colorName.accentGreen))
+                          .make() // TODO: Add up your widgets
+                    ]),
+                    const VxDivider(type: VxDividerType.horizontal).py8(),
+                    VStack(listOrderState.model[index].products
+                        .map((e) => HStack([
+                              VxBox()
+                                  .size(40, 40)
+                                  .bgImage(DecorationImage(
+                                    image: NetworkImage(
+                                      e.pictures![0],
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ))
+                                  .roundedSM
+                                  .make(),
+                              4.widthBox,
+                              e.name!.text.make(),
+                            ]).py4())
+                        .toList()),
+                    16.heightBox,
+                    'Total: ${Commons().setPriceToIDR(listOrderState.model[index].totalPrice!)}'
+                        .text
+                        .bold
+                        .make()
+                        .objectBottomRight(), // TODO: Add up your widgets
+                  ])
+                      .p16()
+                      .box
+                      .roundedSM
+                      .color(colorName.white)
                       .make()
-                ]),
-                const VxDivider(type: VxDividerType.horizontal).py8(),
-                VStack(listOrderState.model[index].products
-                    .map((e) => HStack([
-                          VxBox()
-                              .size(40, 40)
-                              .bgImage(DecorationImage(
-                                image: NetworkImage(
-                                  e.pictures![0],
-                                ),
-                                fit: BoxFit.cover,
-                              ))
-                              .roundedSM
-                              .make(),
-                          4.widthBox,
-                          e.name!.text.make(),
-                        ]).py4())
-                    .toList()),
-                16.heightBox,
-                'Total: ${Commons().setPriceToIDR(listOrderState.model[index].totalPrice!)}'
-                    .text
-                    .bold
-                    .make()
-                    .objectBottomRight(),
-              ])
-                  .p16()
-                  .box
-                  .roundedSM
-                  .color(colorName.white)
-                  .make()
-                  .p16()
-                  .onTap(() {
-                switch (listOrderState.model[index].paymentStatus!) {
-                  case 0:
-                    // //TODO: Belum dibayar
-                    // Commons().showSnackBar(context, 'Ke Halaman Pembayaran');
-                    context.go(
-                      routeName.paymentPath,
-                      extra: listOrderState.model[index].id,
-                    );
-                    break;
-                  case 1:
-                    //TODO: Diproses
-                    // Commons().showSnackBar(context, 'Ke Halaman Detail');
+                      .p16()
+                      .onTap(() {
+                    switch (listOrderState.model[index].paymentStatus!) {
+                      case 0:
+                        // //TODO: Belum dibayar
+                        // Commons().showSnackBar(context, 'Ke Halaman Pembayaran');
+                        context.go(
+                          routeName.paymentPath,
+                          extra: listOrderState.model[index].id,
+                        );
+                        break;
+                      case 1:
+                        //TODO: Diproses
+                        // Commons().showSnackBar(context, 'Ke Halaman Detail');
 
-                    context.go(
-                      routeName.paymentDetailPath,
-                      extra: listOrderState.model[index].id,
-                    );
+                        context.go(
+                          routeName.paymentDetailPath,
+                          extra: listOrderState.model[index].id,
+                        );
 
-                    break;
-                  case 2:
-                    //TODO: Selesai
-                    Commons().showSnackBar(context, 'Ke Halaman Selesai');
-                    break;
-                  default:
-                }
-              });
+                        break;
+                      case 2:
+                        //TODO: Selesai
+                        Commons().showSnackBar(context, 'Ke Halaman Selesai');
+                        break;
+                      default:
+                    }
+                  }),
+                ),
+              );
             },
           );
         }

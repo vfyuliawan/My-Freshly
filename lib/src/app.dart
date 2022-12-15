@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freshly/src/blocs/blocs.dart';
 import 'package:freshly/src/blocs/detail_product/detail_product_bloc.dart';
+import 'package:freshly/src/blocs/list_user/list_user_bloc.dart';
 import 'package:freshly/src/cubits/cubits.dart';
 import 'package:freshly/src/utilities/utilities.dart';
 
@@ -35,7 +36,9 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => AddToCartBloc()),
         BlocProvider(create: (context) => CounterCubit()),
         BlocProvider(create: (context) => ListOrderBloc()),
+        BlocProvider(create: (context) => ListOrderAdminBloc()),
         BlocProvider(create: (context) => AddToOrderBloc()),
+        BlocProvider(create: (context) => ListUserBloc()),
         BlocProvider(
             create: (context) =>
                 WishlistCubit(BlocProvider.of<CheckSavedCubit>(context))),

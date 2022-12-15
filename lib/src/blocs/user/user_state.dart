@@ -22,4 +22,11 @@ class UserIsSuccess extends UserState {
   });
 }
 
+// class LoadAllUserIsSuccess extends UserState {
+//   final List<UserModel> data;
+//   LoadAllUserIsSuccess({
+//     required this.data,
+//   });
+// }
+
 class UserIsLogOut extends UserState {}

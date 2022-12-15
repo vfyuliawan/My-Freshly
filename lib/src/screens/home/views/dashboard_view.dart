@@ -715,123 +715,128 @@ class _DashboardViewState extends State<DashboardView>
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: RichText(
-          text: const TextSpan(
-            text: 'F r e s h l y',
-            style: TextStyle(
-                color: colorName.white,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'godleaf'),
-          ),
-        ),
         actions: [
-          ZStack(
+          HStack(
             [
-              IconButton(
-                onPressed: () {
-                  context.go(routeName.myOrderPath);
-                },
-                icon: const Icon(
-                  Icons.shopping_cart,
+              Container(
+                height: 40,
+                width: 260,
+                decoration: BoxDecoration(
                   color: colorName.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
+                child: TextField(
+                  controller: productSearchController,
+                  style: const TextStyle(color: colorName.black),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: BlocBuilder<ListSearchProductBloc,
+                          ListSearchProductState>(
+                        builder: (context, state) {
+                          return const Icon(Icons.search, color: kPrimaryColor)
+                              .onTap(
+                            () {
+                              BlocProvider.of<ListSearchProductBloc>(context)
+                                  .add(
+                                FetchListProductSearch(
+                                    search: productSearchController.text),
+                              );
+                              context.go(routeName.searchPath);
+                            },
+                          );
+                        },
+                      ),
+                      hintText: 'Cari produk segar di Freshly'),
+                ),
+              ).p(6),
+              // IconButton(
+              //   onPressed: () {
+              //     context.go(routeName.myOrderPath);
+              //   },
+              //   icon: const Icon(
+              //     Icons.shopping_cart,
+              //     color: colorName.white,
+              //   ),
+              // ),
+              // BlocBuilder<ListOrderBloc, ListOrderState>(
+              //   builder: (context, listOrderState) {
+              //     if (listOrderState is ListOrderIsSuccess) {
+              //       return VxBox(child: Text("${listOrderState.model.length}"))
+              //           .roundedFull
+              //           .color(colorName.primary)
+              //           .make()
+              //           .positioned(bottom: 5, right: 30);
+              //     }
+              //     return Container();
+              //   },
+              // ),
               BlocBuilder<ListOrderBloc, ListOrderState>(
                 builder: (context, listOrderState) {
-                  if (listOrderState is ListOrderIsSuccess) {
-                    return VxBox(
-                            child: "${listOrderState.model.length}"
-                                .text
-                                .size(8)
-                                .white
-                                .makeCentered()
-                                .p4())
-                        .roundedFull
-                        .color(colorName.primary)
-                        .make()
-                        .positioned(bottom: 5, right: 2);
-                  }
-                  return Container();
+                  return ZStack(
+                    [
+                      IconButton(
+                        onPressed: () {
+                          context.go(routeName.myOrderPath);
+                        },
+                        icon: const Icon(
+                          Icons.shopping_cart_checkout_outlined,
+                          color: colorName.white,
+                        ),
+                      ),
+                      (listOrderState is ListOrderIsSuccess)
+                          ? VxBox(
+                                  child: Text(
+                              "${listOrderState.model.length}",
+                              style: TextStyle(
+                                fontSize: 8,
+                              ),
+                            ))
+                              .p4
+                              .roundedFull
+                              .color(colorName.primary)
+                              .make()
+                              .positioned(bottom: 7, right: 30)
+                          : 0.heightBox
+                    ],
+                    alignment: Alignment.bottomCenter,
+                  );
                 },
-              )
+              ),
+              BlocBuilder<CartCountCubit, CartCountState>(
+                builder: (context, state) {
+                  return ZStack(
+                    [
+                      IconButton(
+                        onPressed: () {
+                          context.go(routeName.cartPath);
+                        },
+                        icon: const Icon(
+                          Icons.shopping_bag_outlined,
+                          color: colorName.white,
+                        ),
+                      ),
+                      (state as CartCountIsSuccess).value != 0
+                          ? VxBox(
+                                  child: state.value.text
+                                      .size(12)
+                                      .white
+                                      .makeCentered()
+                                      .p2())
+                              .p4
+                              .roundedFull
+                              .color(colorName.primary)
+                              .make()
+                              .positioned(bottom: 5, right: 30)
+                          : 0.heightBox
+                    ],
+                    alignment: Alignment.bottomCenter,
+                  );
+                },
+              ),
             ],
-            alignment: Alignment.bottomCenter,
-          ),
-          BlocBuilder<CartCountCubit, CartCountState>(
-            builder: (context, state) {
-              return ZStack(
-                [
-                  IconButton(
-                    onPressed: () {
-                      context.go(routeName.cartPath);
-                    },
-                    icon: const Icon(
-                      Icons.shopping_bag_outlined,
-                      color: colorName.white,
-                    ),
-                  ),
-                  (state as CartCountIsSuccess).value != 0
-                      ? VxBox(
-                              child: state.value.text
-                                  .size(8)
-                                  .white
-                                  .makeCentered()
-                                  .p4())
-                          .roundedFull
-                          .color(colorName.primary)
-                          .make()
-                          .positioned(bottom: 5, right: 2)
-                      : 0.heightBox
-                ],
-                alignment: Alignment.bottomCenter,
-              );
-            },
-          ),
-          2.widthBox,
-          IconButton(
-            onPressed: () {
-              context.go(routeName.home);
-            },
-            icon: const Icon(
-              Icons.refresh_outlined,
-              color: colorName.white,
-            ),
-          ).positioned(bottom: 5, right: 2),
+          ).expand(),
           2.widthBox,
         ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Container(
-            height: 40,
-            decoration: BoxDecoration(
-              color: colorName.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextField(
-              controller: productSearchController,
-              style: const TextStyle(color: colorName.black),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: BlocBuilder<ListSearchProductBloc,
-                      ListSearchProductState>(
-                    builder: (context, state) {
-                      return const Icon(Icons.search, color: kPrimaryColor)
-                          .onTap(
-                        () {
-                          BlocProvider.of<ListSearchProductBloc>(context).add(
-                            FetchListProductSearch(
-                                search: productSearchController.text),
-                          );
-                          context.go(routeName.search);
-                        },
-                      );
-                    },
-                  ),
-                  hintText: 'Cari produk segar di Freshly'),
-            ),
-          ).p12(),
-        ),
       ),
       body: SafeArea(
         child: BlocBuilder<UserBloc, UserState>(
@@ -842,8 +847,8 @@ class _DashboardViewState extends State<DashboardView>
               return VStack(
                 [
                   _buildAppBar(context, state.data),
-                  20.heightBox,
-                  _buildListProduct().expand(),
+                  // 20.heightBox,
+                  _buildListProduct(),
                   20.heightBox,
                 ],
                 alignment: MainAxisAlignment.start,
@@ -852,7 +857,7 @@ class _DashboardViewState extends State<DashboardView>
             }
             return 0.heightBox;
           },
-        ).p16().centered().hFull(context).scrollVertical(),
+        ).p8().centered().scrollVertical(),
       ),
     );
   }
@@ -860,14 +865,16 @@ class _DashboardViewState extends State<DashboardView>
   Widget _buildAppBar(BuildContext context, UserModel data) {
     return VxBox(
       child: Container(
-        height: 185,
+        height: 220,
         decoration: const BoxDecoration(),
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
                 color: colorName.background,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
               ),
               child: Center(
                 child: Row(
@@ -881,7 +888,7 @@ class _DashboardViewState extends State<DashboardView>
                           children: [
                             IconButton(
                               onPressed: () {
-                                // context.go(routeName.buah);
+                                context.go(routeName.buahPath);
                               },
                               icon: const Image(
                                 image: AssetImage('assets/images/buah.jpg'),
@@ -903,7 +910,7 @@ class _DashboardViewState extends State<DashboardView>
                       children: [
                         IconButton(
                           onPressed: () {
-                            // context.go(routeName.sayur);
+                            context.go(routeName.sayurPath);
                           },
                           icon: const Image(
                             image: AssetImage('assets/images/sayur.jpg'),
@@ -923,7 +930,7 @@ class _DashboardViewState extends State<DashboardView>
                       children: [
                         IconButton(
                           onPressed: () {
-                            // context.go(routeName.daging);
+                            context.go(routeName.dagingPath);
                           },
                           icon: const Image(
                             image: AssetImage('assets/images/daging.png'),
@@ -943,7 +950,7 @@ class _DashboardViewState extends State<DashboardView>
                       children: [
                         IconButton(
                           onPressed: () {
-                            // context.go(routeName.ikan);
+                            context.go(routeName.ikanPath);
                           },
                           icon: const Image(
                             image: AssetImage('assets/images/ikan.png'),
@@ -981,13 +988,15 @@ class _DashboardViewState extends State<DashboardView>
                   ],
                 ),
               ),
-            ).h10(context),
-            10.heightBox,
+            ),
             Container(
+              padding: EdgeInsetsDirectional.only(bottom: 10),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: colorName.background,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
               ),
               child: Center(
                 child: Row(
@@ -1047,18 +1056,73 @@ class _DashboardViewState extends State<DashboardView>
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                           ),
-                        )
+                        ),
+                        // _buildPromo(),
                       ],
                     ),
                   ],
                 ),
               ),
-            ).h10(context),
-            const Divider(color: kPrimaryColor)
+            ),
+            // 8.heightBox,
+            Container(
+              child: _buildPromo(),
+            )
+            // const Divider(color: kPrimaryColor),
           ],
         ),
       ),
     ).make();
+  }
+
+  Widget _buildPromo() {
+    return Container(
+      child: CarouselSlider(
+        options: CarouselOptions(
+          autoPlay: true,
+          height: 80,
+          aspectRatio: 1.4,
+        ),
+        items: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage("assets/images/banner4.png"),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage("assets/images/banner1.png"),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage("assets/images/banner3.png"),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage("assets/images/banner2.png"),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildListProduct() {
@@ -1075,9 +1139,11 @@ class _DashboardViewState extends State<DashboardView>
         if (state is ListProductIsSuccess) {
           final data = state.products;
           return GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 4 / 7.2,
+              childAspectRatio: 4 / 7,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
             ),
@@ -1098,7 +1164,7 @@ class _DashboardViewState extends State<DashboardView>
       child: VStack(
         [
           AspectRatio(
-            aspectRatio: 16 / 14,
+            aspectRatio: 16 / 13,
             child: Image.network(
               data.pictures![0],
               fit: BoxFit.cover,
@@ -1107,95 +1173,26 @@ class _DashboardViewState extends State<DashboardView>
           20.heightBox,
           VStack(
             [
-              data.name!.text
-                  .size(15)
-                  .bold
-                  .color(kPrimaryColor)
-                  .make()
-                  .centered(),
+              data.name!.text.size(15).bold.color(kPrimaryColor).make(),
+              // .centered(),
               5.heightBox,
-              Commons()
-                  .setPriceToIDR(data.price!)
-                  .text
-                  .bold
-                  .size(12)
-                  .make()
-                  .centered(),
+              Commons().setPriceToIDR(data.price!).text.bold.size(12).make(),
               5.heightBox,
-              BlocBuilder<CheckVariantCubit, CheckVariantState>(
-                builder: (
-                  context,
-                  variantState,
-                ) {
-                  return HStack(
-                    data.variant!
-                        .map((e) => VxBox(
-                                    child: e.text
-                                        .color((variantState
-                                                    as CheckVariantIsSelected)
-                                                .selectedVariant
-                                                .contains(e)
-                                            ? colorName.white
-                                            : colorName.black)
-                                        .make())
-                                .color(variantState.selectedVariant.contains(e)
-                                    ? kPrimaryColor
-                                    : colorName.white)
-                                .border(
-                                    color:
-                                        variantState.selectedVariant.contains(e)
-                                            ? colorName.white
-                                            : colorName.grey)
-                                .p4
-                                .roundedSM
-                                .make()
-                                .onTap(() {
-                              BlocProvider.of<CheckVariantCubit>(context)
-                                  .selectItem(e);
-                            }).pOnly(right: 4))
-                        .toList(),
-                  ).centered();
-                },
+              data.desc!.text.maxLines(3).size(12).make(),
+              // .centered(),
+              5.heightBox,
+              Container(
+                height: 50,
+                width: 50,
+                alignment: Alignment.topLeft,
+                // color: Colors.blue,
+                child: Image(
+                  image: AssetImage("assets/images/bebas_ongkir.png"),
+                  fit: BoxFit.cover,
+                ),
               )
             ],
-          ),
-          BlocBuilder<DetailProductBloc, DetailProductState>(
-            builder: (context, state) {
-              if (state is DetailProductIsSuccess) {
-                return BlocConsumer<AddToCartBloc, AddToCartState>(
-                  listener: (context, addToCartState) {
-                    if (addToCartState is AddToCartIsSuccess) {
-                      Commons().showSnackBar(context, addToCartState.message);
-                    }
-                    if (addToCartState is AddToCartIsFailed) {
-                      Commons().showSnackBar(context, addToCartState.message);
-                    }
-                  },
-                  builder: (context, addToCartState) {
-                    return BlocBuilder<CheckVariantCubit, CheckVariantState>(
-                      builder: (context, variantState) {
-                        return ButtonWidget(
-                          text: 'Tambah Keranjang',
-                          isLoading: (addToCartState is AddToCartIsLoading),
-                          onPressed: () {
-                            BlocProvider.of<AddToCartBloc>(context).add(
-                              AddToCart(
-                                  //untuk data
-                                  state.data,
-                                  //untuk variant yang dipilih
-                                  (variantState as CheckVariantIsSelected)
-                                      .selectedVariant),
-                            );
-                          },
-                        ).p8().centered();
-                      },
-                    );
-                  },
-                );
-              }
-              return 0.heightBox;
-            },
-          ),
+          ).pOnly(left: 15),
         ],
       ).box.make().color(Colors.white),
     ).onTap(

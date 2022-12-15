@@ -35,5 +35,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         ),
       );
     });
+    // on<FetchAllUser>((event, emit) async {
+    //   emit(UserIsLoading());
+    //   final result = await UserService().fetchAllUser();
+    //   emit(result.fold((l) => UserIsFailed(message: l),
+    //       (r) => LoadAllUserIsSuccess(data: r)));
+    // });
   }
 }

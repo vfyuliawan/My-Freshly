@@ -17,3 +17,5 @@ export 'list_product_ikan/list_product_ikan_bloc.dart';
 export 'list_search_product/list_search_product_bloc.dart';
 export 'on_bayar/on_bayar_bloc.dart';
 export 'detail_order/detail_order_bloc.dart';
+export 'list_order_admin/list_order_admin_bloc.dart';
+export 'list_user/list_user_bloc.dart';

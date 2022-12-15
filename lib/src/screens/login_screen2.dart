@@ -18,7 +18,8 @@ class _AnakBagongState extends State<AnakBagong> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginIsFailed) {
-              Commons().showSnackbarError(context, state.message);
+              Commons()
+                  .showSnackbarError(context, "Harap masukkan data yang benar");
             } else if (state is LoginIsSuccess) {
               Commons().showSnackbarInfo(context, "Selamat datang Kembali");
               context.go(routeName.home);
@@ -28,22 +29,11 @@ class _AnakBagongState extends State<AnakBagong> {
             child: VStack(
               [
                 VxBox(
-                  child: Container(
-                    margin: EdgeInsets.all(50),
-                    height: 30,
-                    width: 20,
-                    child: Image(
-                      image: AssetImage("assets/images/toko.png"),
-                      fit: BoxFit.contain,
-                    ),
+                  child: Image(
+                    image: AssetImage("assets/images/toko.png"),
+                    fit: BoxFit.contain,
                   ),
-                )
-                    .size(context.screenWidth, context.percentHeight * 45)
-                    .color(kPrimaryColor)
-                    .bottomRounded(value: 80)
-                    .withShadow([
-                  // BoxShadow(color: )
-                ]).make(),
+                ).make(),
                 8.heightBox,
                 'SIGN IN'.text.bold.headline5(context).makeCentered().p16(),
                 // Container(
@@ -106,17 +96,17 @@ class _AnakBagongState extends State<AnakBagong> {
           title: 'Email',
           icon: Icon(
             Icons.email,
-            color: kPrimaryColor,
+            color: Colors.amber,
           ),
         ),
         8.heightBox,
         TextFieldWidget(
           controller: passController,
           title: 'Password',
-          icon: Icon(Icons.key, color: kPrimaryColor),
+          icon: Icon(Icons.key, color: Colors.amber),
           isPassword: true,
         ),
-        40.heightBox,
+        20.heightBox,
         BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             return ButtonWidget(
@@ -132,12 +122,12 @@ class _AnakBagongState extends State<AnakBagong> {
             ).wFull(context);
           },
         ),
-        50.heightBox,
-        "Already Have Account"
+        40.heightBox,
+        "Don't have Account?"
             .richText
             .size(12)
             .withTextSpanChildren(
-              ["  Login Here".textSpan.size(14).bold.green500.make()],
+              [" Sign Up".textSpan.size(14).bold.amber500.make()],
             )
             .makeCentered()
             .onTap(

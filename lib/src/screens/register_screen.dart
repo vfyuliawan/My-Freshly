@@ -19,7 +19,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state) {
             if (state is RegisterIsFailed) {
-              Commons().showSnackBar(context, state.message);
+              Commons()
+                  .showSnackbarError(context, "Harap masukkan data yang benar");
             } else if (state is RegisterIsSuccess) {
               context.go(routeName.home);
             }
@@ -30,14 +31,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Image.asset(
                   'assets/images/register_image.png',
-                  height: 200,
-                  width: 200,
-                ).pOnly(top: 20),
-                const Text(
-                  'Create your profile to start your Journey with us...!',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                20.heightBox,
+                  height: 450,
+                  width: 450,
+                ).p(0),
+                5.heightBox,
                 Container(
                   padding: const EdgeInsets.all(2),
                   child: Column(
@@ -51,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.person_outline_rounded,
-                              color: kPrimaryColor),
+                              color: Colors.amber),
                         ),
                       ),
                       10.heightBox,
@@ -65,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(
                             Icons.email_rounded,
-                            color: kPrimaryColor,
+                            color: Colors.amber,
                           ),
                         ),
                       ),
@@ -80,10 +77,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.lock_clock_rounded,
-                              color: kPrimaryColor),
+                              color: Colors.amber),
                         ),
                       ),
-                      16.heightBox,
+                      20.heightBox,
                       BlocBuilder<RegisterBloc, RegisterState>(
                         builder: (context, state) {
                           return ButtonWidget(
@@ -102,25 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ).wFull(context);
                         },
                       ),
-                      16.heightBox,
-                      Column(
-                        children: [
-                          const Text('OR'),
-                          SizedBox(
-                            width: double.infinity,
-                            child: OutlinedButton.icon(
-                              onPressed: () {},
-                              icon: const Image(
-                                image: NetworkImage(
-                                    'https://e7.pngegg.com/pngimages/337/722/png-clipart-google-search-google-account-google-s-google-play-google-company-text.png'),
-                                width: 25,
-                              ),
-                              label: const Text('Login With Google'),
-                            ),
-                          )
-                        ],
-                      ),
-                      16.heightBox,
+                      40.heightBox,
                       "Already Have Account"
                           .richText
                           .size(12)
@@ -130,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   .textSpan
                                   .size(14)
                                   .bold
-                                  .green500
+                                  .amber500
                                   .make()
                             ],
                           )

@@ -49,10 +49,16 @@ dependencies:
   carousel_slider: ^4.1.1
   another_stepper: ^1.1.6
   fl_chart: ^0.55.2
+  flutter_launcher_icons: "^0.11.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/freshly.jpg"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -94,7 +100,11 @@ flutter:
     - assets/images/ayam.png
     - assets/images/bumbu.png
     - assets/images/card.png
-    # - assets/images/google.png
+    - assets/images/bebas_ongkir.png
+    - assets/images/banner4.png
+    - assets/images/banner3.png
+    - assets/images/banner2.png
+    - assets/images/banner1.png
     - assets/images/register_image.png
 
   #   - images/a_dot_ham.jpeg

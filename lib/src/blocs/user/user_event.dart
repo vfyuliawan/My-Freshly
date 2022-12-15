@@ -7,4 +7,6 @@ class LoadUserData extends UserEvent {}
 
 class LogOutUser extends UserEvent {}
 
+// class FetchAllUser extends UserEvent {}
+
 class ChangePhoto extends UserEvent {}

@@ -5,6 +5,17 @@ class UserService {
   final usersCollection =
       FirebaseFirestore.instance.collection(usersCollectionName);
 
+  Future<Either<String, List<UserModel>>> fetchAllUser() async {
+    try {
+      final querySnapshot = await usersCollection.get();
+      final data =
+          querySnapshot.docs.map((e) => UserModel.fromMap(e.data())).toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   Future<Either<String, UserModel>> registerWithEmail(
       {String? email, String? password, String? name}) async {
     try {

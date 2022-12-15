@@ -7,6 +7,16 @@ mixin routeName {
   static const home = '/home';
   static const admin = 'admin';
   static const adminPath = '/home/admin';
+  //---------------------------------------------------------
+  static const buah = 'buah';
+  static const buahPath = '/home/buah';
+  static const sayur = 'sayur';
+  static const sayurPath = '/home/sayur';
+  static const daging = 'daging';
+  static const dagingPath = '/home/daging';
+  static const ikan = 'ikan';
+  static const ikanPath = '/home/ikan';
+  //---------------------------------------------------------
   static const cart = 'cart';
   static const cartPath = '/home/cart';
   static const detail = 'detail';
@@ -21,6 +31,10 @@ mixin routeName {
   static const paymentDetailPath = '/home/myOrder/paymentDetail';
   static const adminProduct = 'adminProduct';
   static const adminProductPath = '/home/adminProduct';
+  static const adminOrder = 'adminOrder';
+  static const adminOrderPath = '/home/adminOrder';
+  static const adminUser = 'adminUser';
+  static const adminUserPath = '/home/adminUser';
 }
 
 final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
@@ -66,9 +80,60 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
             .add(FetchListProductIkan());
         BlocProvider.of<ListCartBloc>(context).add(FetchListCart());
         BlocProvider.of<ListOrderBloc>(context).add(FetchListOrder());
+        // BlocProvider.of<UserBloc>(context).add(FetchAllUser());
+        BlocProvider.of<ListOrderAdminBloc>(context)
+            .add(FetchLAdministOrderAll());
         return const HomeScreen();
       },
       routes: [
+        GoRoute(
+          path: routeName.ikan,
+          builder: (context, state) {
+            BlocProvider.of<ListProductIkanBloc>(context)
+                .add(FetchListProductIkan());
+            return const ListIkan();
+          },
+        ),
+        GoRoute(
+          path: routeName.daging,
+          builder: (context, state) {
+            BlocProvider.of<ListProductDagingBloc>(context)
+                .add(FetchListProductDaging());
+            return const ListDaging();
+          },
+        ),
+        GoRoute(
+          path: routeName.sayur,
+          builder: (context, state) {
+            BlocProvider.of<ListProductSayurBloc>(context)
+                .add(FetchListProductSayur());
+            return const ListSayur();
+          },
+        ),
+        GoRoute(
+          path: routeName.buah,
+          builder: (context, state) {
+            BlocProvider.of<ListProductBuahBloc>(context)
+                .add(FetchListProductBuah());
+            return const ListBuah();
+          },
+        ),
+        GoRoute(
+          path: routeName.adminUser,
+          builder: (context, state) {
+            BlocProvider.of<ListUserBloc>(context).add(FetchListUser());
+            return const AdminUserScreen();
+          },
+        ),
+        GoRoute(
+          path: routeName.adminOrder,
+          builder: (context, state) {
+            BlocProvider.of<ListOrderAdminBloc>(context)
+                .add(FetchLAdministOrderAll());
+
+            return const AdminOrderScreen();
+          },
+        ),
         GoRoute(
           path: routeName.adminProduct,
           builder: (context, state) {

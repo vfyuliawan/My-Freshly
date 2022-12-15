@@ -13,7 +13,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   final List<String> images = [
-    'https://www.pngall.com/wp-content/uploads/2016/05/ATM-Card-Download-PNG.png',
+    // 'https://www.pngall.com/wp-content/uploads/2016/05/ATM-Card-Download-PNG.png',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_4Xe3PG4JrN9V1yx-LjoW-6DSawAKk9Xa5GlksUzNlSIC5CY7-3lWy43BwVdmW37rm2w&usqp=CAU',
     'https://pngimg.com/uploads/credit_card/credit_card_PNG188.png',
     'https://freepngimg.com/save/9534-atm-card-png-clipart/2000x1294',

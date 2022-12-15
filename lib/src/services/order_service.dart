@@ -61,6 +61,20 @@ class OrderService {
     }
   }
 
+  Future<Either<String, List<OrderModel>>> fetchListOrderAll() async {
+    try {
+      // String uid = await Commons().getUID();
+      final querySnapshot =
+          await ordersCollection.orderBy("dateTime", descending: true).get();
+
+      final data =
+          querySnapshot.docs.map((e) => OrderModel.fromMap(e.data())).toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   //fetchdetail
   Future<Either<String, OrderModel>> fetchDetailOrder(docId) async {
     try {

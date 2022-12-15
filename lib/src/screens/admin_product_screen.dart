@@ -7,15 +7,30 @@ class AdminProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Your Product".text.bold.color(kPrimaryColor).make(),
+        title: Column(
+          children: [
+            "Marchendise".text.color(Colors.black54).make(),
+            BlocBuilder<ListProductBloc, ListProductState>(
+              builder: (context, stateListOrder) {
+                if (stateListOrder is ListProductIsSuccess) {
+                  return "${stateListOrder.products.length}  Product"
+                      .text
+                      .color(Colors.black54)
+                      .make();
+                }
+                return Container();
+              },
+            )
+          ],
+        ),
         centerTitle: true,
-        leading: Icon(Icons.arrow_back_ios, color: kPrimaryColor).onTap(() {
+        leading: Icon(Icons.arrow_back_ios, color: Colors.black54).onTap(() {
           context.go(routeName.home);
         }),
         backgroundColor: Colors.white,
         elevation: 0,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: Size.fromHeight(35),
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 3),
@@ -24,7 +39,7 @@ class AdminProductScreen extends StatelessWidget {
               width: 200,
               decoration: BoxDecoration(
                   color: kPrimaryColor,
-                  borderRadius: BorderRadius.circular(50)),
+                  borderRadius: BorderRadius.circular(10)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -72,12 +87,12 @@ class AdminProductScreen extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.edit_outlined,
-                          color: kPrimaryColor,
+                          color: Colors.black54,
                         ),
                         4.heightBox,
                         Icon(
                           Icons.delete_outline_rounded,
-                          color: kPrimaryColor,
+                          color: Colors.black54,
                         ),
                       ],
                     ),
@@ -91,8 +106,7 @@ class AdminProductScreen extends StatelessWidget {
                         "${data[index].name}".text.bold.size(22).make(),
                         "IDR ${data[index].price}"
                             .text
-                            .color(kPrimaryColor.withOpacity(0.9))
-                            .bold
+                            .color(Colors.black54)
                             .size(18)
                             .make(),
                       ],

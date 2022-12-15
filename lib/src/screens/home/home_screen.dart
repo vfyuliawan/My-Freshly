@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .size(16)
                                           .color(Colors.grey.shade200)
                                           .make(),
-                                      "2"
+                                      "4"
                                           .text
                                           .bold
                                           .color(Colors.grey.shade200)
@@ -170,54 +170,69 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .make(),
                                     ],
                                   ),
-                                ),
+                                ).onTap(() {
+                                  context.go(routeName.adminUserPath);
+                                }),
                               ],
                             ),
                             16.heightBox,
                             Row(
                               children: [
-                                Container(
-                                  height: 130,
-                                  width: 170,
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    gradient: LinearGradient(colors: [
-                                      Colors.purpleAccent,
-                                      Colors.purple.shade200,
-                                    ]),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: Colors.grey.shade200,
-                                        size: 40,
-                                      ),
-                                      "Order Process"
-                                          .text
-                                          .bold
-                                          .size(16)
-                                          .color(Colors.grey.shade200)
-                                          .make(),
-                                      "50"
-                                          .text
-                                          .bold
-                                          .color(Colors.grey.shade200)
-                                          .size(20)
-                                          .make(),
-                                      8.heightBox,
-                                      "Tap to view"
-                                          .text
-                                          .size(12)
-                                          .color(Colors.grey.shade200)
-                                          .make(),
-                                    ],
-                                  ),
+                                BlocBuilder<ListOrderAdminBloc,
+                                    ListOrderAdminState>(
+                                  builder: (context, listOrderState) {
+                                    if (listOrderState
+                                        is ListOrderAdminIsSuccess) {
+                                      return Container(
+                                        height: 130,
+                                        width: 170,
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300,
+                                          gradient: LinearGradient(colors: [
+                                            Colors.purpleAccent,
+                                            Colors.purple.shade200,
+                                          ]),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.shopping_cart_outlined,
+                                              color: Colors.grey.shade200,
+                                              size: 40,
+                                            ),
+                                            "Order Process"
+                                                .text
+                                                .bold
+                                                .size(16)
+                                                .color(Colors.grey.shade200)
+                                                .make(),
+                                            "${listOrderState.model.length}"
+                                                .text
+                                                .bold
+                                                .color(Colors.grey.shade200)
+                                                .size(20)
+                                                .make(),
+                                            8.heightBox,
+                                            "Tap to view"
+                                                .text
+                                                .size(12)
+                                                .color(Colors.grey.shade200)
+                                                .make(),
+                                          ],
+                                        ),
+                                      ).onTap(() {
+                                        context.go(routeName.adminOrderPath);
+                                      });
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
                                 16.widthBox,
                                 BlocBuilder<ListProductBloc, ListProductState>(

@@ -17,6 +17,8 @@ import 'package:freshly/src/widgets/widgets.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../blocs/list_user/list_user_bloc.dart';
 // import 'package:vertical_stepper/vertical_stepper.dart';
 // import 'package:vertical_stepper/vertical_stepper.dart' as step;
 
@@ -36,3 +38,9 @@ part 'my_order_screen.dart';
 part 'detail_order_screen.dart';
 part 'payment_screen.dart';
 part 'admin_product_screen.dart';
+part 'admin_order_screen.dart';
+part 'admin_user_screen.dart';
+part 'buah_screen.dart';
+part 'sayur_screen.dart';
+part 'daging_screen.dart';
+part 'ikan_screen.dart';
