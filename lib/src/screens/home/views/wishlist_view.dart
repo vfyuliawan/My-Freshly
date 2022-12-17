@@ -8,14 +8,14 @@ class WishlistView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorName.mintLeaf,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             "My Wishlist".text.bold.color(colorName.black).make(),
             10.widthBox,
-            Icon(Icons.favorite_border_rounded, color: Colors.black),
+            Icon(Icons.favorite_border_rounded, color: Colors.red),
           ],
         ).expand(),
         iconTheme: const IconThemeData(color: colorName.black),
@@ -51,7 +51,7 @@ class WishlistView extends StatelessWidget {
                               16.widthBox,
                               VStack(
                                 [
-                                  data.name!.text.size(25).bold.make(),
+                                  data.name!.text.size(15).bold.make(),
                                   24.heightBox,
                                   Commons()
                                       .setPriceToIDR(data.price!)

@@ -62,27 +62,21 @@ class _AdminOrderScreenState extends State<AdminOrderScreen> {
                         listOrderState.model[index].productName!.text
                             .make()
                             .expand(),
-                        ((listOrderState.model[index].paymentStatus! == 0
-                                    ? 'Belum Dibayar'
-                                    : listOrderState
-                                                .model[index].paymentStatus! ==
-                                            1
-                                        ? 'Pesanan Diproses'
-                                        : listOrderState.model[index]
-                                                    .paymentStatus! ==
-                                                2
-                                            ? 'Selesai'
-                                            : 'Pesanan Dibatalkan')
-                                .text)
-                            .color(
-                                (listOrderState.model[index].paymentStatus! == 0
-                                    ? colorName.accentRed
-                                    : listOrderState
-                                                .model[index].paymentStatus! ==
-                                            1
-                                        ? colorName.accentBlue
-                                        : colorName.accentGreen))
-                            .make() // TODO: Add up your widgets
+                        ((listOrderState.model[index].paymentStatus == 0)
+                            ? "Belum Dibayar".text.make()
+                            : (listOrderState.model[index].paymentStatus == 1)
+                                ? ButtonWidget(
+                                    isLoading: false,
+                                    onPressed: () {
+                                      Commons().showSnackbarInfo(
+                                          context, "Pesanan Dikonfrimasi");
+                                    },
+                                    text: "Konfrimasi Pesanan",
+                                  )
+                                : (listOrderState.model[index].paymentStatus ==
+                                        2)
+                                    ? "selesai".text.make()
+                                    : "Pesanan Dibatalkan".text.make())
                       ]),
                       const VxDivider(type: VxDividerType.horizontal).py8(),
                       VStack(listOrderState.model[index].products

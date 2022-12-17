@@ -16,6 +16,14 @@ mixin routeName {
   static const dagingPath = '/home/daging';
   static const ikan = 'ikan';
   static const ikanPath = '/home/ikan';
+  static const bumbu = 'bumbu';
+  static const bumbuPath = '/home/bumbu';
+  static const frozen = 'frozen';
+  static const frozenPath = '/home/frozen';
+  static const susu = 'susu';
+  static const susuPath = '/home/susu';
+  static const minuman = 'minuman';
+  static const minumanPath = '/home/minuman';
   //---------------------------------------------------------
   static const cart = 'cart';
   static const cartPath = '/home/cart';
@@ -35,6 +43,8 @@ mixin routeName {
   static const adminOrderPath = '/home/adminOrder';
   static const adminUser = 'adminUser';
   static const adminUserPath = '/home/adminUser';
+  static const checkout = 'checkout';
+  static const checkoutPath = '/home/myOrder/checkout';
 }
 
 final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
@@ -78,6 +88,15 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
             .add(FetchListProductBuah());
         BlocProvider.of<ListProductIkanBloc>(context)
             .add(FetchListProductIkan());
+        BlocProvider.of<ListProductBumbuBloc>(context)
+            .add(FetchListProductBumbu());
+        BlocProvider.of<ListProductFrozenBloc>(context)
+            .add(FetchListProductFrozen());
+        BlocProvider.of<ListProductSusuBloc>(context)
+            .add(FetchListProductSusu());
+        // BlocProvider.of<ListProductMinumanBloc>(context)
+        //     .add(FetchListProductMinuman());
+
         BlocProvider.of<ListCartBloc>(context).add(FetchListCart());
         BlocProvider.of<ListOrderBloc>(context).add(FetchListOrder());
         // BlocProvider.of<UserBloc>(context).add(FetchAllUser());
@@ -103,6 +122,14 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
           },
         ),
         GoRoute(
+          path: routeName.bumbu,
+          builder: (context, state) {
+            BlocProvider.of<ListProductBumbuBloc>(context)
+                .add(FetchListProductBumbu());
+            return const ListBumbu();
+          },
+        ),
+        GoRoute(
           path: routeName.sayur,
           builder: (context, state) {
             BlocProvider.of<ListProductSayurBloc>(context)
@@ -118,6 +145,39 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
             return const ListBuah();
           },
         ),
+        GoRoute(
+          path: routeName.frozen,
+          builder: (context, state) {
+            BlocProvider.of<ListProductFrozenBloc>(context)
+                .add(FetchListProductFrozen());
+            return const ListFrozen();
+          },
+        ),
+
+        GoRoute(
+          path: routeName.frozen,
+          builder: (context, state) {
+            BlocProvider.of<ListProductFrozenBloc>(context)
+                .add(FetchListProductFrozen());
+            return const ListFrozen();
+          },
+        ),
+        GoRoute(
+          path: routeName.susu,
+          builder: (context, state) {
+            BlocProvider.of<ListProductSusuBloc>(context)
+                .add(FetchListProductSusu());
+            return const ListSusu();
+          },
+        ),
+        // GoRoute(
+        //   path: routeName.minuman,
+        //   builder: (context, state) {
+        //     BlocProvider.of<ListProductMinumanBloc>(context)
+        //         .add(FetchListProductMinuman());
+        //     return const ListMinuman();
+        //   },
+        // ),
         GoRoute(
           path: routeName.adminUser,
           builder: (context, state) {
@@ -193,6 +253,15 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
                 BlocProvider.of<DetailOrderBloc>(context)
                     .add(FetchDetailOrder(id));
                 return const DetailOrderScreen();
+              },
+            ),
+            GoRoute(
+              path: routeName.checkout,
+              builder: (context, state) {
+                String id = state.extra as String;
+                BlocProvider.of<DetailOrderBloc>(context)
+                    .add(FetchDetailOrder(id));
+                return const CheckoutScreen();
               },
             ),
           ],

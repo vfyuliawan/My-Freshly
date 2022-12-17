@@ -39,6 +39,10 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => ListOrderAdminBloc()),
         BlocProvider(create: (context) => AddToOrderBloc()),
         BlocProvider(create: (context) => ListUserBloc()),
+        BlocProvider(create: (context) => ListProductBumbuBloc()),
+        BlocProvider(create: (context) => ListProductFrozenBloc()),
+        BlocProvider(create: (context) => ListProductSusuBloc()),
+        // BlocProvider(create: (context) => ListProductMinumanBloc()),
         BlocProvider(
             create: (context) =>
                 WishlistCubit(BlocProvider.of<CheckSavedCubit>(context))),

@@ -714,7 +714,7 @@ class _DashboardViewState extends State<DashboardView>
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorName.mintLeaf,
         actions: [
           HStack(
             [
@@ -779,7 +779,7 @@ class _DashboardViewState extends State<DashboardView>
                           context.go(routeName.myOrderPath);
                         },
                         icon: const Icon(
-                          Icons.shopping_cart_checkout_outlined,
+                          Icons.shopping_bag_outlined,
                           color: colorName.white,
                         ),
                       ),
@@ -811,7 +811,7 @@ class _DashboardViewState extends State<DashboardView>
                           context.go(routeName.cartPath);
                         },
                         icon: const Icon(
-                          Icons.shopping_bag_outlined,
+                          Icons.shopping_cart_checkout_outlined,
                           color: colorName.white,
                         ),
                       ),
@@ -970,7 +970,8 @@ class _DashboardViewState extends State<DashboardView>
                       children: [
                         IconButton(
                           onPressed: () {
-                            // context.go(routeName.bumbu);
+                            context.go(routeName
+                                .bumbuPath); // context.go(routeName.bumbu);
                           },
                           icon: const Image(
                             image: AssetImage('assets/images/bumbu.png'),
@@ -1007,7 +1008,9 @@ class _DashboardViewState extends State<DashboardView>
                         return Column(
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.go(routeName.frozenPath);
+                              },
                               icon: const Image(
                                 image: AssetImage('assets/images/ayam.png'),
                               ),
@@ -1027,7 +1030,9 @@ class _DashboardViewState extends State<DashboardView>
                     Column(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.go(routeName.susuPath);
+                          },
                           icon: const Image(
                             image: AssetImage('assets/images/susu.png'),
                           ),
@@ -1042,24 +1047,6 @@ class _DashboardViewState extends State<DashboardView>
                       ],
                     ),
                     15.widthBox,
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Image(
-                            image: AssetImage('assets/images/bumbu.png'),
-                          ),
-                        ),
-                        const Text(
-                          'Kopi, Teh & Minuman',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        // _buildPromo(),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -1173,7 +1160,7 @@ class _DashboardViewState extends State<DashboardView>
           20.heightBox,
           VStack(
             [
-              data.name!.text.size(15).bold.color(kPrimaryColor).make(),
+              data.name!.text.size(15).bold.color(colorName.primary).make(),
               // .centered(),
               5.heightBox,
               Commons().setPriceToIDR(data.price!).text.bold.size(12).make(),

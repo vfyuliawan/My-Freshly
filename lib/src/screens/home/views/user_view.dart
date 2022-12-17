@@ -7,7 +7,7 @@ class UserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorName.background,
+        backgroundColor: colorName.mintLeaf,
         elevation: 0,
         title: const Text(
           'PROFILE',
@@ -105,7 +105,7 @@ class UserView extends StatelessWidget {
                                     ),
                                     const Text(
                                       'Ganti Poto Profil',
-                                      style: TextStyle(fontSize: 8),
+                                      style: TextStyle(fontSize: 12),
                                     )
                                   ],
                                 ),
@@ -118,65 +118,7 @@ class UserView extends StatelessWidget {
                   ),
                   10.heightBox,
                   Container(
-                    height: 65,
-                    decoration: BoxDecoration(
-                      color: colorName.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                context.go(routeName.cartPath);
-                              },
-                              icon: const Image(
-                                image: AssetImage('assets/images/ewallet.png'),
-                                height: 35,
-                              ),
-                            ),
-                            const Text('E-Wallet')
-                          ],
-                        ),
-                        50.widthBox,
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                context.go(routeName.cartPath);
-                              },
-                              icon: const Image(
-                                image: AssetImage('assets/images/reward.png'),
-                                height: 35,
-                              ),
-                            ),
-                            const Text('Reward')
-                          ],
-                        ),
-                        50.widthBox,
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                context.go(routeName.cartPath);
-                              },
-                              icon: const Image(
-                                image:
-                                    AssetImage('assets/images/subscribe.png'),
-                                height: 35,
-                              ),
-                            ),
-                            const Text('Langganan')
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  10.heightBox,
-                  Container(
-                    height: 350,
+                    height: 550,
                     decoration: BoxDecoration(
                       color: Colors.black12,
                       borderRadius: BorderRadius.circular(10),
@@ -199,9 +141,9 @@ class UserView extends StatelessWidget {
                                   height: 35,
                                 ),
                               ),
-                              const Text('Email'),
-                              125.widthBox,
-                              state.data.email!.text.size(16).make(),
+                              const Text('Emai  :'),
+                              75.widthBox,
+                              state.data.email!.text.size(14).make(),
                             ],
                           ),
                           20.heightBox,
@@ -216,8 +158,9 @@ class UserView extends StatelessWidget {
                                   height: 35,
                                 ),
                               ),
-                              const Text('Whatsapp'),
-                              50.widthBox,
+                              const Text('Whatsapp  :'),
+                              42.widthBox,
+                              "081283589073".text.size(14).make(),
                             ],
                           ),
                           20.heightBox,
@@ -233,32 +176,15 @@ class UserView extends StatelessWidget {
                                   height: 35,
                                 ),
                               ),
-                              const Text('Location'),
-                              50.widthBox,
+                              const Text('Location  :'),
+                              48.widthBox,
+                              "Bekasi, Tambun Selatan".text.size(14).make(),
                             ],
                           ),
-                          20.heightBox,
+                          290.heightBox,
                           Row(
                             children: [
-                              IconButton(
-                                onPressed: () {
-                                  context.go(routeName.adminPath);
-                                },
-                                icon: const Image(
-                                  image: AssetImage(
-                                      'assets/images/addproduct.png'),
-                                  height: 35,
-                                ),
-                              ),
-                              const Text('Tambahkan Produk'),
-                              50.widthBox,
-                            ],
-                          ).onTap(() {
-                            context.go(routeName.adminPath);
-                          }),
-                          20.heightBox,
-                          Row(
-                            children: [
+                              140.widthBox,
                               IconButton(
                                 onPressed: () {
                                   context.go(routeName.login);

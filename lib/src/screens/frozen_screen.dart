@@ -1,7 +1,7 @@
 part of 'screens.dart';
 
-class ListIkan extends StatelessWidget {
-  const ListIkan({super.key});
+class ListFrozen extends StatelessWidget {
+  const ListFrozen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ListIkan extends StatelessWidget {
         backgroundColor: colorName.mintLeaf,
         title: RichText(
           text: const TextSpan(
-            text: 'I k a n',
+            text: 'F r o z e n  F o o d',
             style: TextStyle(
                 color: colorName.white,
                 fontSize: 20,
@@ -73,7 +73,7 @@ class ListIkan extends StatelessWidget {
                 return VStack(
                   [
                     20.heightBox,
-                    _buildListProductBuah().expand(),
+                    _buildListProductBumbu().expand(),
                   ],
                   alignment: MainAxisAlignment.start,
                   axisSize: MainAxisSize.max,
@@ -113,6 +113,7 @@ class ListIkan extends StatelessWidget {
                     5.heightBox,
                     data.desc!.text
                         .size(15)
+                        .maxLines(3)
                         // .bold
                         .color(Colors.black26)
                         .make(),
@@ -127,21 +128,21 @@ class ListIkan extends StatelessWidget {
     );
   }
 
-  Widget _buildListProductBuah() {
-    return BlocConsumer<ListProductIkanBloc, ListProductIkanState>(
+  Widget _buildListProductBumbu() {
+    return BlocConsumer<ListProductFrozenBloc, ListProductFrozenState>(
       listener: (context, state) {
-        if (state is ListProductIkanIsFailed) {
+        if (state is ListProductFrozenIsFailed) {
           Commons().showSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
-        if (state is ListProductIkanIsLoading) {
+        if (state is ListProductFrozenIsLoading) {
           //Loading Widget
           return const CircularProgressIndicator();
         }
-        if (state is ListProductIkanIsSuccess) {
+        if (state is ListProductFrozenIsSuccess) {
           //List Product Widget
-          final data = state.products;
+          final data = state.data;
 
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -63,6 +63,36 @@ class ProductService {
     }
   }
 
+  Future<Either<String, List<ProductModel>>> FetchListProductBumbu() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'bumbu')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> FetchListProductFrozen() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'frozen')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
   Future<Either<String, List<ProductModel>>> fetchListProductbuah() async {
     try {
       final querySnapshot = await productCollection
@@ -82,6 +112,36 @@ class ProductService {
     try {
       final querySnapshot = await productCollection
           .where('category', arrayContains: 'daging')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> FetchListProductSusu() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'susu')
+          .get();
+
+      final data = querySnapshot.docs
+          .map((e) => ProductModel.fromMap(e.data()))
+          .toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> FetchListProductMinuman() async {
+    try {
+      final querySnapshot = await productCollection
+          .where('category', arrayContains: 'minuman')
           .get();
 
       final data = querySnapshot.docs

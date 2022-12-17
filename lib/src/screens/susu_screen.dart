@@ -1,7 +1,7 @@
 part of 'screens.dart';
 
-class ListIkan extends StatelessWidget {
-  const ListIkan({super.key});
+class ListSusu extends StatelessWidget {
+  const ListSusu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ListIkan extends StatelessWidget {
         backgroundColor: colorName.mintLeaf,
         title: RichText(
           text: const TextSpan(
-            text: 'I k a n',
+            text: 'Produk Susu & Olahan',
             style: TextStyle(
                 color: colorName.white,
                 fontSize: 20,
@@ -128,18 +128,18 @@ class ListIkan extends StatelessWidget {
   }
 
   Widget _buildListProductBuah() {
-    return BlocConsumer<ListProductIkanBloc, ListProductIkanState>(
+    return BlocConsumer<ListProductSusuBloc, ListProductSusuState>(
       listener: (context, state) {
-        if (state is ListProductIkanIsFailed) {
+        if (state is ListProductSusuIsFailed) {
           Commons().showSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
-        if (state is ListProductIkanIsLoading) {
+        if (state is ListProductSusuIsLoading) {
           //Loading Widget
           return const CircularProgressIndicator();
         }
-        if (state is ListProductIkanIsSuccess) {
+        if (state is ListProductSusuIsSuccess) {
           //List Product Widget
           final data = state.products;
 

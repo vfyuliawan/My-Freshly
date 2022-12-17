@@ -28,7 +28,7 @@ class CartScreen extends StatelessWidget {
                         }
                       }
                     }
-                    return total;
+                    return total * 70 / 100;
                   }
 
                   return HStack([
@@ -57,7 +57,7 @@ class CartScreen extends StatelessWidget {
                           return BlocBuilder<AddToOrderBloc, AddToOrderState>(
                             builder: (context, orderState) {
                               return ButtonWidget(
-                                text: 'Beli',
+                                text: 'Checkout',
                                 isLoading: (orderState is AddToOrderIsLoading
                                     ? true
                                     : false),
@@ -95,16 +95,16 @@ class CartScreen extends StatelessWidget {
         leading: Container(
           child: Icon(
             Icons.arrow_back_ios_new_outlined,
-            color: kPrimaryColor,
+            color: Colors.black,
           ).onTap(() {
             context.go(routeName.home);
           }),
         ),
         title: Row(
           children: [
-            Icon(Icons.shopping_cart, color: kPrimaryColor),
+            Icon(Icons.shopping_cart, color: Colors.red),
             5.widthBox,
-            "My Cart".text.bold.color(kPrimaryColor).make()
+            "My Cart".text.bold.color(Colors.black).make()
           ],
         ),
         iconTheme: const IconThemeData(color: colorName.black),

@@ -266,11 +266,11 @@ class _buildOrder extends StatelessWidget {
                                   : listOrderState
                                               .model[index].paymentStatus! ==
                                           1
-                                      ? 'Pesanan Diproses'
+                                      ? 'Menunggu Konfrimasi...'
                                       : listOrderState.model[index]
                                                   .paymentStatus! ==
                                               2
-                                          ? 'Selesai'
+                                          ? 'Pesanan Diproses'
                                           : 'Pesanan Dibatalkan')
                               .text)
                           .color((listOrderState.model[index].paymentStatus! ==
@@ -317,7 +317,7 @@ class _buildOrder extends StatelessWidget {
                         // //TODO: Belum dibayar
                         // Commons().showSnackBar(context, 'Ke Halaman Pembayaran');
                         context.go(
-                          routeName.paymentPath,
+                          routeName.checkoutPath,
                           extra: listOrderState.model[index].id,
                         );
                         break;

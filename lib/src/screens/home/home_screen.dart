@@ -309,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return BottomNavigationBar(
                       showSelectedLabels: true,
                       showUnselectedLabels: false,
-                      selectedItemColor: kPrimaryColor,
+                      selectedItemColor: colorName.mintLeaf,
                       type: BottomNavigationBarType.shifting,
                       unselectedItemColor: colorName.grey,
                       items: bottomNavBarItems,

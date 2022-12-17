@@ -1,4 +1,4 @@
-import 'dart:developer';
+//import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 // import 'dart:js_util';
@@ -44,3 +44,8 @@ part 'buah_screen.dart';
 part 'sayur_screen.dart';
 part 'daging_screen.dart';
 part 'ikan_screen.dart';
+part 'bumbu_screen.dart';
+part 'frozen_screen.dart';
+part 'susu_screen.dart';
+part 'minuman_screen.dart';
+part 'checkout_screen.dart';

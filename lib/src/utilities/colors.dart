@@ -12,4 +12,7 @@ mixin colorName {
   static const Color accentYellow = Color(0xFFfeca57);
   static const Color accentBlue = Color(0xFF54a0ff);
   static const Color juneBud = Color(0xFFbadc58);
+  static const Color mintLeaf = Color(0xFF00b894);
+  static const Color pixelated = Color(0xFF009432);
+  static const Color rightone = Color(0xFFf1f2f6);
 }

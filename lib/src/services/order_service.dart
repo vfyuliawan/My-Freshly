@@ -104,7 +104,19 @@ class OrderService {
           'paymentStatus': 1,
         },
       );
+      return right('Pesanan Dibatalkan');
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 
+  Future<Either<String, String>> onKonfrimasi(OrderModel model) async {
+    try {
+      await ordersCollection.doc(model.id).update(
+        {
+          'paymentStatus': 2,
+        },
+      );
       return right('Pesanan Dibatalkan');
     } catch (e) {
       return left(e.toString());

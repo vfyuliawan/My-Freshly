@@ -8,7 +8,7 @@ class ListBuah extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorName.mintLeaf,
         title: RichText(
           text: const TextSpan(
             text: 'B  u  a  h',

@@ -8,7 +8,7 @@ class ListDaging extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: colorName.mintLeaf,
         title: RichText(
           text: const TextSpan(
             text: 'D a g i n g',

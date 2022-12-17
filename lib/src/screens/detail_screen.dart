@@ -275,7 +275,7 @@ class _DetailScreenState extends State<DetailScreen> {
           8.heightBox,
           Row(
             children: [
-              "Harga Per Kilo".text.size(20).make(),
+              "Harga Per Pack".text.size(20).make(),
               8.widthBox,
               Container(
                 padding: EdgeInsets.all(10),
@@ -343,37 +343,7 @@ class _DetailScreenState extends State<DetailScreen> {
         4.heightBox,
         state.data.desc!.text.size(14).color(colorName.grey).make(),
       ]).py16(),
-      VStack([
-        'Variant Produk'.text.bold.make(),
-        8.heightBox,
-        BlocBuilder<CheckVariantCubit, CheckVariantState>(
-          builder: (context, variantState) {
-            return HStack(state.data.variant!
-                .map((e) => VxBox(
-                            child: e.text
-                                .color((variantState as CheckVariantIsSelected)
-                                        .selectedVariant
-                                        .contains(e)
-                                    ? colorName.white
-                                    : colorName.black)
-                                .make())
-                        .color(variantState.selectedVariant.contains(e)
-                            ? kPrimaryColor
-                            : colorName.white)
-                        .border(
-                            color: variantState.selectedVariant.contains(e)
-                                ? colorName.white
-                                : colorName.grey)
-                        .p16
-                        .rounded
-                        .make()
-                        .onTap(() {
-                      BlocProvider.of<CheckVariantCubit>(context).selectItem(e);
-                    }).pOnly(right: 4))
-                .toList());
-          },
-        )
-      ]),
+
       // BlocBuilder<CounterCubit, CounterState>(
       //   builder: (context, state) {
       //     return VStack([
